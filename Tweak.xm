@@ -72,7 +72,6 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 }
 %end
 
-
 %ctor {
   refreshPrefs();
   CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback) PreferencesChangedCallback, CFSTR("xyz.skitty.dragenabler.update"), NULL, CFNotificationSuspensionBehaviorCoalesce);
