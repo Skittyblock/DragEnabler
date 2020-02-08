@@ -72,6 +72,15 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 }
 %end
 
+%hook YTSettings
+- (bool)isDragDropEnabled {
+  if (enabled) {
+    return YES;
+  }
+  return %orig;
+}
+%end
+
 %ctor {
   refreshPrefs();
   CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback) PreferencesChangedCallback, CFSTR("xyz.skitty.dragenabler.update"), NULL, CFNotificationSuspensionBehaviorCoalesce);
