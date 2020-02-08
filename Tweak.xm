@@ -33,6 +33,15 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 }
 %end
 
+%hook YTSettings
+- (bool)isDragDropEnabled {
+  if (enabled) {
+    return YES;
+  }
+  return %orig;
+}
+%end
+
 // Allow Interprocess Dragging
 %hook _UIInternalDraggingSession
 - (bool)shouldCancelOnAppDeactivation {
