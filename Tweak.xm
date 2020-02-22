@@ -72,6 +72,16 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 }
 %end
 
+// Support for new version of Twitter app
+%hook T1Twitter.T1Application
+- (bool)isDragAndDropEnabled {
+  if (enabled) {
+    return YES;
+  }
+  return %orig;
+}
+%end
+
 %ctor {
   refreshPrefs();
   CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback) PreferencesChangedCallback, CFSTR("xyz.skitty.dragenabler.update"), NULL, CFNotificationSuspensionBehaviorCoalesce);
